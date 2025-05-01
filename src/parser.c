@@ -1,6 +1,11 @@
 #include "libft.h"
 #include "so_long.h"
 
+void	map_elements(int fd, t_stack *map)
+{
+	
+}
+
 void	map_dimensions(int fd, t_stack *map)
 {
 	char	*line;
@@ -58,4 +63,10 @@ void	map_checker(char *map_path, t_stack *map)
 		return ;
 	}
 	map_dimensions(fd, map);
+	if (map->flag == false)
+	{
+		close(fd);
+		return ;
+	}
+	map_elements(fd, map);
 }
