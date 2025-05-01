@@ -1,9 +1,38 @@
 #include "libft.h"
 #include "so_long.h"
 
-void	map_elements(int fd, t_stack *map)
+void	map_elements(char *mapcon, t_stack *map)
 {
 	
+}
+
+void	map_connect(int fd, t_stack *map)
+{
+	char	*tmp;
+	char	*trimmed;
+	char	*joined;
+
+	map->map = ft_strdup("");
+	while ((tmp = get_next_line(fd)))
+	{
+		trimmed = ft_strtrim(tmp, "\n");
+		free(tmp);
+		if (!trimmed)
+		{
+			map->flag = false;
+			return ;
+		}
+		joined = ft_strjoin(map->map, trimmed);
+		free(trimmed);
+		free(map->map);	
+		if (!joined)
+		{
+			map->flag = false;
+			return ;
+		}
+		map->map = joined;
+	}
+	map_elements(map->map, map);
 }
 
 void	map_dimensions(int fd, t_stack *map)
