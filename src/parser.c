@@ -1,6 +1,33 @@
 #include "libft.h"
 #include "so_long.h"
 
+void	map_dimensions(int fd, t_stack *map)
+{
+	char	*line;
+	int		width;
+	char	*tmp;
+
+	map->high = 0;
+	map->width = 0;	
+	while ((line = get_next_line(fd)))
+	{
+		tmp = line;
+		line = ft_strtrim(line, "\n");
+		free(tmp);
+		width = ft_strlen(line);
+		if (map->width == 0)
+			map->width = width;
+		if (map->width != width)
+		{
+			map->flag = false;
+			free(line);
+			return ;
+		}
+		map->high++;
+		free(line);
+	}
+}
+
 int	path_error(char *map_path)
 {
 	int	i;
@@ -18,6 +45,7 @@ void	map_checker(char *map_path, t_stack *map)
 {
 	int	fd;
 	
+	map->flag = true;
 	if (path_error(map_path))
 	{
 		map->flag = false;
@@ -29,5 +57,5 @@ void	map_checker(char *map_path, t_stack *map)
 		map->flag = false;
 		return ;
 	}
-	
+	map_dimensions(fd, map);
 }

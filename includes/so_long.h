@@ -11,5 +11,5 @@ typedef struct map
 	bool	flag;
 	char	*map;
 }   t_stack;
-t_stack	map_checker(char **map_path, t_stack *map);
+void	map_checker(char *map_path, t_stack *map);
 #endif
