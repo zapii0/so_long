@@ -1,0 +1,29 @@
+#include "libft.h"
+#include "so_long.h"
+
+void	midddle_checker(t_stack *map, int i)
+{
+	int	j;
+
+	j = 0;
+	if (map->map2[i][0] != "1" || map->map2[i][map->width - 1] != "1")
+	{
+		map->flag = false;
+		return ;
+	}
+	while (map->map2[i][j])
+	{
+		if (map->map2[i][j] == "P")
+			map->pcounter++;
+		else if (map->map2[i][j] == "E")
+			map->ecounter++;
+		else if (map->map2[i][j] == "C")
+			map->ccounter++;
+		else if (map->map2[i][j] != "0" || map->map2[i][j] != "1")
+		{
+			map->flag = false;
+			return ;
+		}
+		j++;
+	}
+}

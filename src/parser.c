@@ -1,9 +1,33 @@
 #include "libft.h"
 #include "so_long.h"
 
-void	map_elements(char *mapcon, t_stack *map)
+void	map_elements(char *m, t_stack *map)
 {
-	
+	int	i;
+	int	j;
+
+	i = 0;
+	map->map2 = ft_split(map, "\n");
+	while (map->map2[i])
+	{
+		j = 0;
+		if (i == 0 || i == map->high - 1)
+		{
+			while (map->map2[i][j])
+			{
+				if (map->map2[i][j] == "1")
+					j++;
+				else
+				{
+					map->flag = false;
+					return ;
+				}
+			}
+		}
+		else
+			middle_checker(map, i);
+		i++;
+	}
 }
 
 void	map_connect(int fd, t_stack *map)
@@ -15,7 +39,7 @@ void	map_connect(int fd, t_stack *map)
 	map->map = ft_strdup("");
 	while ((tmp = get_next_line(fd)))
 	{
-		trimmed = ft_strtrim(tmp, "\n");
+		trimmed = ft_strtrim(tmp, " \t\v\f\r");
 		free(tmp);
 		if (!trimmed)
 		{
@@ -24,7 +48,7 @@ void	map_connect(int fd, t_stack *map)
 		}
 		joined = ft_strjoin(map->map, trimmed);
 		free(trimmed);
-		free(map->map);	
+		free(map->map);
 		if (!joined)
 		{
 			map->flag = false;
