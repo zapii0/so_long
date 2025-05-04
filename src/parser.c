@@ -15,19 +15,19 @@ void	map_elements(char *m, t_stack *map)
 		{
 			while (map->map2[i][j])
 			{
-				if (map->map2[i][j] == "1")
-					j++;
-				else
+				if (map->map2[i][j] != "1")
 				{
 					map->flag = false;
 					return ;
 				}
+				j++;
 			}
 		}
 		else
 			middle_checker(map, i);
 		i++;
 	}
+	counter_checker(map);
 }
 
 void	map_connect(int fd, t_stack *map)
@@ -116,10 +116,10 @@ void	map_checker(char *map_path, t_stack *map)
 		return ;
 	}
 	map_dimensions(fd, map);
+	map_connect(map->map2, map);
 	if (map->flag == false)
 	{
 		close(fd);
 		return ;
 	}
-	map_elements(fd, map);
 }

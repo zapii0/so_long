@@ -27,3 +27,13 @@ void	midddle_checker(t_stack *map, int i)
 		j++;
 	}
 }
+
+void	counter_checker(t_stack *map)
+{
+	if (map->ccounter < 1)
+		map->flag = false;
+	if (map->ecounter != 1)
+		map->flag = false;
+	if (map->pcounter != 1)
+		map->flag = false;
+}
