@@ -16,5 +16,11 @@ typedef struct map
 	int		ccounter;
 }   t_stack;
 void	map_checker(char *map_path, t_stack *map);
-void	midddle_checker(t_stack *map, int i);
+void	middle_checker(t_stack *map, int i);
+void	structsetter(t_stack *map);
+void	map_elements(char *m, t_stack *map);
+void	map_connect(int fd, t_stack *map);
+void	counter_checker(t_stack *map);
+void	map_dimensions(int fd, t_stack *map);
+int		path_error(char *map_path);
 #endif

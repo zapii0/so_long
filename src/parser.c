@@ -7,7 +7,7 @@ void	map_elements(char *m, t_stack *map)
 	int	j;
 
 	i = 0;
-	map->map2 = ft_split(map, "\n");
+	map->map2 = ft_split(m, '\n');
 	while (map->map2[i])
 	{
 		j = 0;
@@ -15,7 +15,7 @@ void	map_elements(char *m, t_stack *map)
 		{
 			while (map->map2[i][j])
 			{
-				if (map->map2[i][j] != "1")
+				if (map->map2[i][j] != '1')
 				{
 					map->flag = false;
 					return ;
@@ -34,9 +34,8 @@ void	map_connect(int fd, t_stack *map)
 {
 	char	*tmp;
 	char	*trimmed;
-	char	*joined;
 
-	map->map = ft_strdup("");
+
 	while ((tmp = get_next_line(fd)))
 	{
 		trimmed = ft_strtrim(tmp, " \t\v\f\r");
@@ -46,16 +45,9 @@ void	map_connect(int fd, t_stack *map)
 			map->flag = false;
 			return ;
 		}
-		joined = ft_strjoin(map->map, trimmed);
-		free(trimmed);
-		free(map->map);
-		if (!joined)
-		{
-			map->flag = false;
-			return ;
-		}
-		map->map = joined;
+		map->map = ft_joinfree(map->map, trimmed);
 	}
+	ft_printf("map:%s\n", map->map);
 	map_elements(map->map, map);
 }
 
@@ -103,11 +95,12 @@ void	map_checker(char *map_path, t_stack *map)
 {
 	int	fd;
 	
-	map->flag = true;
 	if (path_error(map_path))
 	{
 		map->flag = false;
+		//ft_printf("path%s\n", map->flag);
 		return ;
+		
 	}
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
@@ -116,10 +109,13 @@ void	map_checker(char *map_path, t_stack *map)
 		return ;
 	}
 	map_dimensions(fd, map);
-	map_connect(map->map2, map);
-	if (map->flag == false)
+	close(fd);
+	fd = open(map_path, O_RDONLY);
+	if (fd == -1)
 	{
-		close(fd);
+		map->flag = false;
 		return ;
 	}
+	map_connect(fd, map);
+	close(fd);
 }
