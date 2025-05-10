@@ -46,6 +46,7 @@ void	map_connect(int fd, t_stack *map)
 			return ;
 		}
 		map->map = ft_joinfree(map->map, trimmed);
+		free(trimmed);
 	}
 	ft_printf("map:%s\n", map->map);
 	map_elements(map->map, map);

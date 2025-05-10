@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 22:33:51 by mzapora           #+#    #+#             */
-/*   Updated: 2024/12/13 03:06:25 by mzapora          ###   ########.fr       */
+/*   Updated: 2025/05/10 02:45:29 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ static	int	count_arg(char const *s, char c)
 static void	*ft_clean(char **list, int k)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < k)
 	{
 		free(list[i]);
-		j++;
+		i++;
 	}
 	free(list);
 	return (NULL);

@@ -10,6 +10,11 @@ void	structsetter(t_stack *map)
 	map->high = 0;
 	map->width = 0;
 	map->map = ft_strdup("");
+	if (map->map == NULL)
+	{
+		map->flag = false;
+		return ;
+	}
 }
 void	middle_checker(t_stack *map, int i)
 {
@@ -46,4 +51,21 @@ void	counter_checker(t_stack *map)
 		map->flag = false;
 	if (map->pcounter != 1)
 		map->flag = false;
+}
+
+void	cleanall(t_stack *map)
+{
+	int	i;
+
+	i = 0;
+	if (map->map)
+		free(map->map);
+	while (i < map->high && map->map2[i])
+	{
+		free(map->map2[i]);
+		i++;
+	}
+	if (map->map2)
+		free(map->map2);
+	free(map);
 }
