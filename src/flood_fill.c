@@ -1,35 +1,34 @@
 #include "so_long.h"
 #include "libft.h"
 
-int	check_res_fl(t_stack *map, int	i, int j)
+int	check_res_fl(t_stack *map, int i, int j)
 {
-	write(1, "dasd", 4);
-	while (map->copy[i])
+	int	exit_reachable = 0;
+
+	while (i < map->high)
 	{
 		j = 0;
 		while (map->copy[i][j])
 		{
-			if (map->copy[i][j] == 'E')
-			{
-				if (j + 1 < map->width  && map->copy[i][j + 1] == 'V')
-					return (0);
-				else if (j - 1 >= 0 && map->copy[i][j - 1] == 'V')
-					return (0);
-				else if (i + 1 < map->high && map->copy[i + 1][j] == 'V')
-					return (0);
-				else if (i - 1 >= 0 && map->copy[i - 1][j] == 'V')
-					return (0);
-				else
-					return (1); 
-			}	
 			if (map->copy[i][j] == 'C')
 				return (1);
+			if (map->copy[i][j] == 'E')
+			{
+				if ((j + 1 < map->width  && map->copy[i][j + 1] == 'V') || \
+					(j - 1 >= 0 && map->copy[i][j - 1] == 'V') || \
+					(i + 1 < map->high && map->copy[i + 1][j] == 'V') || \
+					(i - 1 >= 0 && map->copy[i - 1][j] == 'V'))
+					exit_reachable = 1;
+			}
 			j++;
 		}
 		i++;
 	}
+	if (exit_reachable)
+		return (0);
 	return (1);
 }
+
 
 void	find_plr(t_stack *map, int *x, int *y)
 {
@@ -56,13 +55,13 @@ void	find_plr(t_stack *map, int *x, int *y)
 	return ;
 }
 
-char	**copy_map(t_stack *map)
+char **copy_map(t_stack *map)
 {
-	char	**mapcpy;
-	int		i;
+	char **mapcpy;
+	int i;
 
 	i = 0;
-	mapcpy = malloc (sizeof(char) * map->high);
+	mapcpy = calloc(map->high + 1, sizeof(char *));
 	if (!mapcpy)
 	{
 		map->flag = false;
@@ -71,13 +70,17 @@ char	**copy_map(t_stack *map)
 	while (i < map->high)
 	{
 		mapcpy[i] = ft_strdup(map->map2[i]);
-		if (mapcpy[i])
+		if (!mapcpy[i])
 		{
 			map->flag = false;
+			while (--i >= 0)
+				free(mapcpy[i]);
+			free(mapcpy);
 			return (NULL);
 		}
 		i++;
 	}
+	mapcpy[i] = NULL;
 	return (mapcpy);
 }
 
@@ -97,19 +100,21 @@ void	start_flood_fill(t_stack *map)
 {
 	int	x;
 	int	y;
+	int	i;
 
+	i = 0;
 	map->copy = copy_map(map);
 	if (!map->copy)
 	{
 		map->flag = false;
 		return ;
 	}
-	write(1, "lll", 3);
 	find_plr(map, &x, &y);
 	flood_fill(map, x, y);
 	if (check_res_fl(map, 0, 0))
-	{
 		map->flag = false;
-		return ;
-	}
+	while (i < map->high)
+		free(map->copy[i++]);
+	free(map->copy);
+	map->copy = NULL;
 }

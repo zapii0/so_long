@@ -53,19 +53,23 @@ void	counter_checker(t_stack *map)
 		map->flag = false;
 }
 
-void	cleanall(t_stack *map)
+int	cleanall(t_stack *map)
 {
 	int	i;
 
-	i = 0;
 	if (map->map)
 		free(map->map);
-	while (i < map->high && map->map2[i])
-	{
-		free(map->map2[i]);
-		i++;
-	}
+	i = 0;
 	if (map->map2)
+	{
+		while (i < map->high && map->map2[i])
+		{
+			free(map->map2[i]);
+			i++;
+		}
 		free(map->map2);
+	}
+	i = 0;
 	free(map);
+	return (1);
 }

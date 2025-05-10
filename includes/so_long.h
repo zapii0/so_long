@@ -24,6 +24,6 @@ void	map_connect(int fd, t_stack *map);
 void	counter_checker(t_stack *map);
 void	map_dimensions(int fd, t_stack *map);
 int		path_error(char *map_path);
-void	cleanall(t_stack *map);
+int		cleanall(t_stack *map);
 void	start_flood_fill(t_stack *map);
 #endif
