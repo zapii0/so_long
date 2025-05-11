@@ -4,8 +4,6 @@
 # include <stdbool.h>
 # include <fcntl.h>
 
-#ifndef WIDE
-#define WIDE =
 typedef struct map 
 {
 	int		high;
