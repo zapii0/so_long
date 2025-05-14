@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include <fcntl.h>
+# include "../minilibx-linux/mlx.h"
 
 typedef struct map 
 {

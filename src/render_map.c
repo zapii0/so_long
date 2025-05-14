@@ -1,8 +1,7 @@
 #include "libft.h"
 #include "so_long.h"
-#include <mlx.h>
 
-void    map_render(t_stack *map)
+void    map_render(t_stack *m)
 {
     void    *mlx;
     void    *win;
@@ -10,8 +9,9 @@ void    map_render(t_stack *map)
     mlx = mlx_init();
     if (!mlx)
     {
-        map->flag = false;
+        m->flag = false;
         return ;
     }
+    win = mlx_new_window(mlx, m->width, m->high, "so_long");
     
 }
