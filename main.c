@@ -17,5 +17,6 @@ int	main(int ac, char **av)
 	start_flood_fill(map);
 	if (map->flag == false)
 		return (cleanall(map));
+	map_render(map);
 	return (0);
 }

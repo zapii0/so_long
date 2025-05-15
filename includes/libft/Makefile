@@ -6,13 +6,13 @@
 #    By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 11:30:58 by mzapora           #+#    #+#              #
-#    Updated: 2025/04/28 18:07:08 by mzapora          ###   ########.fr        #
+#    Updated: 2025/05/15 13:29:08 by mzapora          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror -c -fPIC
 
 SRC = ft_bzero.c ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strlen.c ft_strlcat.c ft_strlcpy.c \
 ft_toupper.c ft_tolower.c ft_strrchr.c ft_strncmp.c ft_strchr.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_atoi.c ft_substr.c \

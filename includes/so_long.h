@@ -16,6 +16,13 @@ typedef struct map
 	int		pcounter;
 	int		ecounter;
 	int		ccounter;
+	void	*mlx;
+	void	*win;
+	void	*wall;
+	void	*floor;
+	void	*plr;
+	void	*exit;
+	void	*cltb;
 }   t_stack;
 void	map_checker(char *map_path, t_stack *map);
 void	middle_checker(t_stack *map, int i);
@@ -27,4 +34,7 @@ void	map_dimensions(int fd, t_stack *map);
 int		path_error(char *map_path);
 int		cleanall(t_stack *map);
 void	start_flood_fill(t_stack *map);
+void	map_render(t_stack *m);
+void	add_image(t_stack *m);
+void	win_creator(t_stack *m);
 #endif
