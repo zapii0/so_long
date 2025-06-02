@@ -58,13 +58,14 @@ int	cltbcounter(t_stack *m)
 
 void	move_plr(t_stack *m, int i, char c, int x, int y)
 {
+	(void)i;
 	find_plr(m, &x, &y);
 	m->ccounter = cltbcounter(m);
 	if (c == 'W' && (y - 1) > 0 && (m->map2[y - 1][x] != '1'))
 	{	
-		if (m->map2[y - 1][x] == "E" && m->ccounter == 0)
-			game_win();
-		else if (m->map2[y - 1][x] == "E" && m->ccounter != 0)
+		//if (m->map2[y - 1][x] == 'E' && m->ccounter == 0)
+			//game_win();
+		/*else*/ if (m->map2[y - 1][x] == 'E' && m->ccounter != 0)
 			return ;
 		m->map2[y - 1][x] = 'P';
 		m->map2[y][x] = '0';
@@ -72,9 +73,9 @@ void	move_plr(t_stack *m, int i, char c, int x, int y)
 	}
 	else if (c == 'S' && (y + 1) < m->high && (m->map2[y + 1][x] != '1'))
 	{	
-		if (m->map2[y + 1][x] == "E" && m->ccounter == 0)
+		/*if (m->map2[y + 1][x] == 'E' && m->ccounter == 0)
 			game_win();
-		else if (m->map2[y + 1][x] == "E" && m->ccounter != 0)
+		else*/ if (m->map2[y + 1][x] == 'E' && m->ccounter != 0)
 			return ;
 		m->map2[y + 1][x] = 'P';
 		m->map2[y][x] = '0';
@@ -84,13 +85,14 @@ void	move_plr(t_stack *m, int i, char c, int x, int y)
 void	move_plr2(t_stack *m, int i, char c, int x, int y)
 {
 	{
+		(void)i;
 		find_plr(m, &x, &y);
 		m->ccounter = cltbcounter(m);
 		if (c == 'D' && (x + 1) < m->width && (m->map2[y][x + 1] != '1'))
 		{	
-			if (m->map2[y][x + 1] == "E" && m->ccounter == 0)
+			/*if (m->map2[y][x + 1] == 'E' && m->ccounter == 0)
 				game_win();
-			else if (m->map2[y][x + 1] == "E" && m->ccounter != 0)
+			else*/ if (m->map2[y][x + 1] == 'E' && m->ccounter != 0)
 				return ;
 			m->map2[y][x + 1] = 'P';
 			m->map2[y][x] = '0';
@@ -98,9 +100,9 @@ void	move_plr2(t_stack *m, int i, char c, int x, int y)
 		}
 		else if (c == 'A' && (x - 1) > 0 && (m->map2[y][x - 1] != '1'))
 		{	
-			if (m->map2[y][x - 1] == "E" && m->ccounter == 0)
+			/*if (m->map2[y][x - 1] == 'E' && m->ccounter == 0)
 				game_win();
-			else if (m->map2[y][x - 1] == "E" && m->ccounter != 0)
+			else*/ if (m->map2[y][x - 1] == 'E' && m->ccounter != 0)
 				return ;
 			m->map2[y][x - 1] = 'P';
 			m->map2[y][x] = '0';
@@ -134,5 +136,7 @@ void	map_render(t_stack *m)
 	if (m->flag == false)
 		return ;
 	mlx_hook(m->win, 2, 1L << 0, handler, m);
+		return ;
+	image_putter(m);
 	mlx_loop(m->mlx);
 }

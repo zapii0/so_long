@@ -38,4 +38,5 @@ void	map_render(t_stack *m);
 void	add_image(t_stack *m);
 void	win_creator(t_stack *m);
 void	find_plr(t_stack *map, int *x, int *y);
+void	image_putter(t_stack *map);
 #endif
