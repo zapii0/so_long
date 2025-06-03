@@ -56,57 +56,59 @@ int	cltbcounter(t_stack *m)
 	return (counter);
 }
 
-void	move_plr(t_stack *m, int i, char c, int x, int y)
+int	move_plr(t_stack *m, int i, char c, int x, int y)
 {
-	(void)i;
 	find_plr(m, &x, &y);
 	m->ccounter = cltbcounter(m);
 	if (c == 'W' && (y - 1) > 0 && (m->map2[y - 1][x] != '1'))
 	{	
-		//if (m->map2[y - 1][x] == 'E' && m->ccounter == 0)
-			//game_win();
-		/*else*/ if (m->map2[y - 1][x] == 'E' && m->ccounter != 0)
-			return ;
+		if (m->map2[y - 1][x] == 'E' && m->ccounter == 0)
+			game_win(m);
+		else if (m->map2[y - 1][x] == 'E' && m->ccounter != 0)
+			return (i);
 		m->map2[y - 1][x] = 'P';
 		m->map2[y][x] = '0';
-		return ;
+		return (++i);
 	}
 	else if (c == 'S' && (y + 1) < m->high && (m->map2[y + 1][x] != '1'))
 	{	
-		/*if (m->map2[y + 1][x] == 'E' && m->ccounter == 0)
-			game_win();
-		else*/ if (m->map2[y + 1][x] == 'E' && m->ccounter != 0)
-			return ;
+		if (m->map2[y + 1][x] == 'E' && m->ccounter == 0)
+			game_win(m);
+		else if (m->map2[y + 1][x] == 'E' && m->ccounter != 0)
+			return (i);
 		m->map2[y + 1][x] = 'P';
 		m->map2[y][x] = '0';
+		return (++i);
 	}
+	return (i);
 }
 
-void	move_plr2(t_stack *m, int i, char c, int x, int y)
+int	move_plr2(t_stack *m, int i, char c, int x, int y)
 {
 	{
-		(void)i;
 		find_plr(m, &x, &y);
 		m->ccounter = cltbcounter(m);
 		if (c == 'D' && (x + 1) < m->width && (m->map2[y][x + 1] != '1'))
 		{	
-			/*if (m->map2[y][x + 1] == 'E' && m->ccounter == 0)
-				game_win();
-			else*/ if (m->map2[y][x + 1] == 'E' && m->ccounter != 0)
-				return ;
+			if (m->map2[y][x + 1] == 'E' && m->ccounter == 0)
+				game_win(m);
+			else if (m->map2[y][x + 1] == 'E' && m->ccounter != 0)
+				return (i);
 			m->map2[y][x + 1] = 'P';
 			m->map2[y][x] = '0';
-			return ;
+			return (++i);
 		}
 		else if (c == 'A' && (x - 1) > 0 && (m->map2[y][x - 1] != '1'))
 		{	
-			/*if (m->map2[y][x - 1] == 'E' && m->ccounter == 0)
-				game_win();
-			else*/ if (m->map2[y][x - 1] == 'E' && m->ccounter != 0)
-				return ;
+			if (m->map2[y][x - 1] == 'E' && m->ccounter == 0)
+				game_win(m);
+			else if (m->map2[y][x - 1] == 'E' && m->ccounter != 0)
+				return (i);
 			m->map2[y][x - 1] = 'P';
 			m->map2[y][x] = '0';
+			return (++i);
 		}
+		return (i);
 	}
 }
 int	handler(int keycode, t_stack *m)
@@ -115,15 +117,15 @@ int	handler(int keycode, t_stack *m)
 
 	i = 0;
 	if (keycode == 119)
-		move_plr(m, ++i, 'W', 0, 0);
+		move_plr(m, i, 'W', 0, 0);
 	else if (keycode == 97)
-		move_plr2(m, ++i, 'A', 0, 0);
+		move_plr2(m, i, 'A', 0, 0);
 	else if (keycode == 115)
-		move_plr(m, ++i, 'S', 0, 0);
+		move_plr(m, i, 'S', 0, 0);
 	else if (keycode == 100)
-		move_plr2(m, ++i, 'D', 0, 0);
+		move_plr2(m, i, 'D', 0, 0);
 	else if (keycode == 65307)
-		move_plr(m, ++i, 'E', 0, 0);
+		move_plr(m, i, 'E', 0, 0);
 	return (0);
 }
 
@@ -136,7 +138,7 @@ void	map_render(t_stack *m)
 	if (m->flag == false)
 		return ;
 	mlx_hook(m->win, 2, 1L << 0, handler, m);
-		return ;
 	image_putter(m);
 	mlx_loop(m->mlx);
 }
+

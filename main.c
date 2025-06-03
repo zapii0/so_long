@@ -1,11 +1,6 @@
 #include "libft.h"
 #include "so_long.h"
 
-void	put_tile(t_stack *m, void *img, int x, int y)
-{
-	mlx_put_image_to_window(m->mlx, m->win, img, x, y);
-}
-
 void	image_putter(t_stack *map)
 {
 	int x;

@@ -16,7 +16,7 @@ MLX_FLAGS   = -lXext -lX11
 
 # Pliki źródłowe
 SRC_DIR     = src
-SRC_FILES   = main.c parser.c parser2.c flood_fill.c render_map.c
+SRC_FILES   = main.c parser.c parser2.c flood_fill.c render_map.c utils.c
 
 # Pliki obiektowe (w katalogu głównym)
 OBJ_FILES   = $(SRC_FILES:.c=.o)

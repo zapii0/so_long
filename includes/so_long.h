@@ -23,6 +23,7 @@ typedef struct map
 	void	*plr;
 	void	*exit;
 	void	*cltb;
+	int		gamewin;
 }   t_stack;
 void	map_checker(char *map_path, t_stack *map);
 void	middle_checker(t_stack *map, int i);
@@ -39,4 +40,8 @@ void	add_image(t_stack *m);
 void	win_creator(t_stack *m);
 void	find_plr(t_stack *map, int *x, int *y);
 void	image_putter(t_stack *map);
+void	game_win(t_stack *map);
+int		move_plr2(t_stack *m, int i, char c, int x, int y);
+int		move_plr(t_stack *m, int i, char c, int x, int y);
+void	put_tile(t_stack *m, void *img, int x, int y);
 #endif

@@ -98,7 +98,6 @@ void	map_checker(char *map_path, t_stack *map)
 	if (path_error(map_path))
 	{
 		map->flag = false;
-		//ft_printf("path%s\n", map->flag);
 		return ;
 		
 	}
