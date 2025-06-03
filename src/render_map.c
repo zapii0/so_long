@@ -56,76 +56,23 @@ int	cltbcounter(t_stack *m)
 	return (counter);
 }
 
-int	move_plr(t_stack *m, int i, char c, int x, int y)
-{
-	find_plr(m, &x, &y);
-	m->ccounter = cltbcounter(m);
-	if (c == 'W' && (y - 1) > 0 && (m->map2[y - 1][x] != '1'))
-	{	
-		if (m->map2[y - 1][x] == 'E' && m->ccounter == 0)
-			game_win(m);
-		else if (m->map2[y - 1][x] == 'E' && m->ccounter != 0)
-			return (i);
-		m->map2[y - 1][x] = 'P';
-		m->map2[y][x] = '0';
-		return (++i);
-	}
-	else if (c == 'S' && (y + 1) < m->high && (m->map2[y + 1][x] != '1'))
-	{	
-		if (m->map2[y + 1][x] == 'E' && m->ccounter == 0)
-			game_win(m);
-		else if (m->map2[y + 1][x] == 'E' && m->ccounter != 0)
-			return (i);
-		m->map2[y + 1][x] = 'P';
-		m->map2[y][x] = '0';
-		return (++i);
-	}
-	return (i);
-}
-
-int	move_plr2(t_stack *m, int i, char c, int x, int y)
-{
-	{
-		find_plr(m, &x, &y);
-		m->ccounter = cltbcounter(m);
-		if (c == 'D' && (x + 1) < m->width && (m->map2[y][x + 1] != '1'))
-		{	
-			if (m->map2[y][x + 1] == 'E' && m->ccounter == 0)
-				game_win(m);
-			else if (m->map2[y][x + 1] == 'E' && m->ccounter != 0)
-				return (i);
-			m->map2[y][x + 1] = 'P';
-			m->map2[y][x] = '0';
-			return (++i);
-		}
-		else if (c == 'A' && (x - 1) > 0 && (m->map2[y][x - 1] != '1'))
-		{	
-			if (m->map2[y][x - 1] == 'E' && m->ccounter == 0)
-				game_win(m);
-			else if (m->map2[y][x - 1] == 'E' && m->ccounter != 0)
-				return (i);
-			m->map2[y][x - 1] = 'P';
-			m->map2[y][x] = '0';
-			return (++i);
-		}
-		return (i);
-	}
-}
 int	handler(int keycode, t_stack *m)
 {
-	int	i;
+	int x;
+	int y;
 
-	i = 0;
+	find_plr(m, &x, &y);
 	if (keycode == 119)
-		move_plr(m, i, 'W', 0, 0);
+		y--;
 	else if (keycode == 97)
-		move_plr2(m, i, 'A', 0, 0);
+		x--;
 	else if (keycode == 115)
-		move_plr(m, i, 'S', 0, 0);
+		y++;
 	else if (keycode == 100)
-		move_plr2(m, i, 'D', 0, 0);
+		x++;
 	else if (keycode == 65307)
-		move_plr(m, i, 'E', 0, 0);
+	
+	
 	return (0);
 }
 

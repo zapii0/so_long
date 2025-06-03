@@ -4,6 +4,7 @@
 void	structsetter(t_stack *map)
 {
 	map->ccounter = 0;
+	map->moves = 0;
 	map->ecounter = 0;
 	map->flag = true;
 	map->pcounter = 0;

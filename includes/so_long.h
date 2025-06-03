@@ -24,6 +24,7 @@ typedef struct map
 	void	*exit;
 	void	*cltb;
 	int		gamewin;
+	int		moves;
 }   t_stack;
 void	map_checker(char *map_path, t_stack *map);
 void	middle_checker(t_stack *map, int i);
