@@ -56,25 +56,71 @@ int	cltbcounter(t_stack *m)
 	return (counter);
 }
 
+void	move_player(t_stack *m, int new_x, int new_y)
+{
+	int	x;
+	int	y;
+
+	if (new_y < 0 || new_x < 0 || !m->map2[new_y] || new_x >= (int)ft_strlen(m->map2[new_y]))
+		return;
+	find_plr(m, &x, &y);
+	char next_tile = m->map2[new_y][new_x];
+	if (next_tile == '1')
+		return;
+	if (next_tile == 'E' && m->ccounter > 0)
+		return;
+	if (next_tile == 'C')
+		m->ccounter--;
+	if (next_tile == 'E' && m->ccounter == 0)
+	{
+		ft_printf("You win!\n");
+		cleanall(m);
+		exit(0);
+	}
+	m->map2[y][x] = '0';
+	m->map2[new_y][new_x] = 'P';
+	m->moves++;
+	ft_printf("Moves: %d\n", m->moves);
+}
+
 int	handler(int keycode, t_stack *m)
 {
-	int x;
-	int y;
+	int	x, y;
 
-	find_plr(m, &x, &y);
 	if (keycode == 119)
-		y--;
+	{
+		find_plr(m, &x, &y);
+		move_player(m, x, y - 1);
+	}
 	else if (keycode == 97)
-		x--;
+	{
+		find_plr(m, &x, &y);
+		move_player(m, x - 1, y);
+	}
 	else if (keycode == 115)
-		y++;
+	{
+		find_plr(m, &x, &y);
+		move_player(m, x, y + 1);
+	}
 	else if (keycode == 100)
-		x++;
+	{
+		find_plr(m, &x, &y);
+		move_player(m, x + 1, y);
+	}
 	else if (keycode == 65307)
-	
-	
+	{
+		cleanall(m);
+		//win_dest(m);
+		exit(0);
+	}
+	else
+		return (0);
+
+	image_putter(m);
 	return (0);
 }
+
+
 
 void	map_render(t_stack *m)
 {

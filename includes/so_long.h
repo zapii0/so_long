@@ -45,4 +45,5 @@ void	game_win(t_stack *map);
 int		move_plr2(t_stack *m, int i, char c, int x, int y);
 int		move_plr(t_stack *m, int i, char c, int x, int y);
 void	put_tile(t_stack *m, void *img, int x, int y);
+void 	win_dest(t_stack *m);
 #endif

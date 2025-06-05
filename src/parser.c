@@ -58,7 +58,7 @@ void	map_dimensions(int fd, t_stack *map)
 	char	*tmp;
 
 	map->high = 0;
-	map->width = 0;	
+	map->width = 0;
 	while ((line = get_next_line(fd)))
 	{
 		tmp = line;
@@ -99,7 +99,6 @@ void	map_checker(char *map_path, t_stack *map)
 	{
 		map->flag = false;
 		return ;
-		
 	}
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)

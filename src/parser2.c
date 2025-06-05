@@ -63,7 +63,7 @@ int	cleanall(t_stack *map)
 	i = 0;
 	if (map->map2)
 	{
-		while (i < map->high && map->map2[i])
+		while (i <= map->high && map->map2[i])
 		{
 			free(map->map2[i]);
 			i++;

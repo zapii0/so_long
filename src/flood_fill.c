@@ -29,31 +29,24 @@ int	check_res_fl(t_stack *map, int i, int j)
 	return (1);
 }
 
-
-void	find_plr(t_stack *map, int *x, int *y)
+void find_plr(t_stack *m, int *x, int *y)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while(map->copy[i])
+	for (int i = 0; m->map2[i]; i++)
 	{
-		j = 0;
-		while (map->copy[i][j])
+		for (int j = 0; m->map2[i][j]; j++)
 		{
-			if (map->copy[i][j] == 'P')
+			if (m->map2[i][j] == 'P')
 			{
 				*x = j;
 				*y = i;
-				return ;
+				return;
 			}
-			j++;
 		}
-		i++;
-	}
-	return ;
+	}	
+	*x = -1;
+	*y = -1;
 }
+
 
 char **copy_map(t_stack *map)
 {
