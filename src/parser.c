@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 14:55:23 by mzapora           #+#    #+#             */
+/*   Updated: 2025/06/09 17:38:11 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "so_long.h"
 
@@ -35,10 +47,10 @@ void	map_connect(int fd, t_stack *map)
 	char	*tmp;
 	char	*trimmed;
 
-
-	while ((tmp = get_next_line(fd)))
+	tmp = get_next_line(fd);
+	while (tmp)
 	{
-		trimmed = ft_strtrim(tmp, " \t\v\f\r");
+		trimmed = ft_strtrim(tmp, "\t\v\f\r ");
 		free(tmp);
 		if (!trimmed)
 		{
@@ -47,6 +59,7 @@ void	map_connect(int fd, t_stack *map)
 		}
 		map->map = ft_joinfree(map->map, trimmed);
 		free(trimmed);
+		tmp = get_next_line(fd);
 	}
 	map_elements(map->map, map);
 }
@@ -54,12 +67,13 @@ void	map_connect(int fd, t_stack *map)
 void	map_dimensions(int fd, t_stack *map)
 {
 	char	*line;
-	int		width;
 	char	*tmp;
+	int		width;
 
 	map->high = 0;
 	map->width = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		tmp = line;
 		line = ft_strtrim(line, "\n");
@@ -75,6 +89,7 @@ void	map_dimensions(int fd, t_stack *map)
 		}
 		map->high++;
 		free(line);
+		line = get_next_line(fd);
 	}
 }
 
@@ -86,7 +101,7 @@ int	path_error(char *map_path)
 	if (i < 5)
 		return (1);
 	if (map_path[i - 1] != 'r' || map_path[i - 2] != 'e' \
-	|| map_path[i - 3] != 'b'|| map_path[i - 4] != '.')
+	|| map_path[i - 3] != 'b' || map_path[i - 4] != '.')
 		return (1);
 	return (0);
 }
@@ -94,7 +109,7 @@ int	path_error(char *map_path)
 void	map_checker(char *map_path, t_stack *map)
 {
 	int	fd;
-	
+
 	if (path_error(map_path))
 	{
 		map->flag = false;

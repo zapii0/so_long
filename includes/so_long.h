@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 14:57:53 by mzapora           #+#    #+#             */
+/*   Updated: 2025/06/09 16:18:29 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -5,7 +17,7 @@
 # include <fcntl.h>
 # include "../minilibx-linux/mlx.h"
 
-typedef struct map 
+typedef struct map
 {
 	int		high;
 	int		width;
@@ -25,7 +37,7 @@ typedef struct map
 	void	*cltb;
 	int		gamewin;
 	int		moves;
-}   t_stack;
+}	t_stack;
 void	map_checker(char *map_path, t_stack *map);
 void	middle_checker(t_stack *map, int i);
 void	structsetter(t_stack *map);
@@ -39,11 +51,10 @@ void	start_flood_fill(t_stack *map);
 void	map_render(t_stack *m);
 void	add_image(t_stack *m);
 void	win_creator(t_stack *m);
+void	handle_move(int keycode, t_stack *m);
 void	find_plr(t_stack *map, int *x, int *y);
 void	image_putter(t_stack *map);
 void	game_win(t_stack *map);
-int		move_plr2(t_stack *m, int i, char c, int x, int y);
-int		move_plr(t_stack *m, int i, char c, int x, int y);
 void	put_tile(t_stack *m, void *img, int x, int y);
-void 	win_dest(t_stack *m);
+void	win_dest(t_stack *m);
 #endif

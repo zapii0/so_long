@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 14:55:08 by mzapora           #+#    #+#             */
+/*   Updated: 2025/06/09 15:42:46 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 #include "libft.h"
 
 int	check_res_fl(t_stack *map, int i, int j)
 {
-	int	exit_reachable = 0;
+	int	exit_reachable;
 
+	exit_reachable = 0;
 	while (i < map->high)
 	{
 		j = 0;
@@ -14,7 +27,7 @@ int	check_res_fl(t_stack *map, int i, int j)
 				return (1);
 			if (map->copy[i][j] == 'E')
 			{
-				if ((j + 1 < map->width  && map->copy[i][j + 1] == 'V') || \
+				if ((j + 1 < map->width && map->copy[i][j + 1] == 'V') || \
 					(j - 1 >= 0 && map->copy[i][j - 1] == 'V') || \
 					(i + 1 < map->high && map->copy[i + 1][j] == 'V') || \
 					(i - 1 >= 0 && map->copy[i - 1][j] == 'V'))
@@ -29,29 +42,35 @@ int	check_res_fl(t_stack *map, int i, int j)
 	return (1);
 }
 
-void find_plr(t_stack *m, int *x, int *y)
+void	find_plr(t_stack *m, int *x, int *y)
 {
-	for (int i = 0; m->map2[i]; i++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (m->map2[i])
 	{
-		for (int j = 0; m->map2[i][j]; j++)
+		j = 0;
+		while (m->map2[i][j])
 		{
 			if (m->map2[i][j] == 'P')
 			{
 				*x = j;
 				*y = i;
-				return;
+				return ;
 			}
+			j++;
 		}
-	}	
+		i++;
+	}
 	*x = -1;
 	*y = -1;
 }
 
-
-char **copy_map(t_stack *map)
+char	**copy_map(t_stack *map)
 {
-	char **mapcpy;
-	int i;
+	char	**mapcpy;
+	int		i;
 
 	i = 0;
 	mapcpy = calloc(map->high + 1, sizeof(char *));

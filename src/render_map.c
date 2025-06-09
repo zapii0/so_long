@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_map.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 14:55:48 by mzapora           #+#    #+#             */
+/*   Updated: 2025/06/09 16:19:53 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "so_long.h"
 
@@ -5,6 +17,7 @@ void	add_image(t_stack *m)
 {
 	int	w;
 	int	h;
+
 	m->wall = mlx_xpm_file_to_image(m->mlx, "assets/wall.xpm", &w, &h);
 	m->floor = mlx_xpm_file_to_image(m->mlx, "assets/floor.xpm", &w, &h);
 	m->plr = mlx_xpm_file_to_image(m->mlx, "assets/player.xpm", &w, &h);
@@ -58,17 +71,17 @@ int	cltbcounter(t_stack *m)
 
 void	move_player(t_stack *m, int new_x, int new_y)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	next_tile;
 
-	if (new_y < 0 || new_x < 0 || !m->map2[new_y] || new_x >= (int)ft_strlen(m->map2[new_y]))
-		return;
+	if (new_y < 0 || new_x < 0 || !m->map2[new_y] || \
+		new_x >= (int)ft_strlen(m->map2[new_y]))
+		return ;
 	find_plr(m, &x, &y);
-	char next_tile = m->map2[new_y][new_x];
-	if (next_tile == '1')
-		return;
-	if (next_tile == 'E' && m->ccounter > 0)
-		return;
+	next_tile = m->map2[new_y][new_x];
+	if ((next_tile == 'E' && m->ccounter > 0) || next_tile == '1')
+		return ;
 	if (next_tile == 'C')
 		m->ccounter--;
 	if (next_tile == 'E' && m->ccounter == 0)
@@ -84,7 +97,7 @@ void	move_player(t_stack *m, int new_x, int new_y)
 	ft_printf("Moves: %d\n", m->moves);
 }
 
-static void	handle_move(int keycode, t_stack *m)
+void	handle_move(int keycode, t_stack *m)
 {
 	int	x;
 	int	y;
@@ -98,36 +111,5 @@ static void	handle_move(int keycode, t_stack *m)
 		move_player(m, x, y + 1);
 	else if (keycode == 100)
 		move_player(m, x + 1, y);
+	return ;
 }
-
-int	handler(int keycode, t_stack *m)
-{
-	if (keycode == 119 || keycode == 97
-		|| keycode == 115 || keycode == 100)
-		handle_move(keycode, m);
-	else if (keycode == 65307)
-	{
-		win_dest(m);
-		cleanall(m);
-		exit(0);
-	}
-	else
-		return (0);
-	image_putter(m);
-	return (0);
-}
-
-
-void	map_render(t_stack *m)
-{
-	win_creator(m);
-	if (m->flag == false)
-		return ;
-	add_image(m);
-	if (m->flag == false)
-		return ;
-	mlx_hook(m->win, 2, 1L << 0, handler, m);
-	image_putter(m);
-	mlx_loop(m->mlx);
-}
-

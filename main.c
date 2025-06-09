@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 14:57:11 by mzapora           #+#    #+#             */
+/*   Updated: 2025/06/09 15:30:53 by mzapora          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "so_long.h"
 
-void image_putter(t_stack *map)
+void	image_putter(t_stack *map)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (map->map2[y])
@@ -28,9 +40,9 @@ void image_putter(t_stack *map)
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_stack *map;
+	t_stack	*map;
 
 	if (ac != 2)
 		return (write(2, "Error\n", 6));
@@ -45,7 +57,5 @@ int main(int ac, char **av)
 	if (map->flag == false)
 		return (write(2, "Error\n", 6), cleanall(map));
 	map_render(map);
-	//win_dest(map);
-	//cleanall(map);
 	return (0);
 }
