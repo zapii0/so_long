@@ -74,6 +74,7 @@ void	move_player(t_stack *m, int new_x, int new_y)
 	if (next_tile == 'E' && m->ccounter == 0)
 	{
 		ft_printf("You win!\n");
+		win_dest(m);
 		cleanall(m);
 		exit(0);
 	}
@@ -83,43 +84,38 @@ void	move_player(t_stack *m, int new_x, int new_y)
 	ft_printf("Moves: %d\n", m->moves);
 }
 
+static void	handle_move(int keycode, t_stack *m)
+{
+	int	x;
+	int	y;
+
+	find_plr(m, &x, &y);
+	if (keycode == 119)
+		move_player(m, x, y - 1);
+	else if (keycode == 97)
+		move_player(m, x - 1, y);
+	else if (keycode == 115)
+		move_player(m, x, y + 1);
+	else if (keycode == 100)
+		move_player(m, x + 1, y);
+}
+
 int	handler(int keycode, t_stack *m)
 {
-	int	x, y;
-
-	if (keycode == 119)
-	{
-		find_plr(m, &x, &y);
-		move_player(m, x, y - 1);
-	}
-	else if (keycode == 97)
-	{
-		find_plr(m, &x, &y);
-		move_player(m, x - 1, y);
-	}
-	else if (keycode == 115)
-	{
-		find_plr(m, &x, &y);
-		move_player(m, x, y + 1);
-	}
-	else if (keycode == 100)
-	{
-		find_plr(m, &x, &y);
-		move_player(m, x + 1, y);
-	}
+	if (keycode == 119 || keycode == 97
+		|| keycode == 115 || keycode == 100)
+		handle_move(keycode, m);
 	else if (keycode == 65307)
 	{
+		win_dest(m);
 		cleanall(m);
-		//win_dest(m);
 		exit(0);
 	}
 	else
 		return (0);
-
 	image_putter(m);
 	return (0);
 }
-
 
 
 void	map_render(t_stack *m)

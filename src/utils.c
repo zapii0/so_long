@@ -15,12 +15,27 @@ void	put_tile(t_stack *m, void *img, int x, int y)
 }
 void win_dest(t_stack *m)
 {
-	mlx_destroy_window(m->mlx, m->win);
-	mlx_destroy_image(m->mlx, m->floor);
-	mlx_destroy_image(m->mlx, m->wall);
-	mlx_destroy_image(m->mlx, m->cltb);
-	mlx_destroy_image(m->mlx, m->exit);
-	mlx_destroy_image(m->mlx, m->plr);
-	mlx_destroy_display(m->mlx);
-	free(m->mlx);
+	if (!m)
+		return;
+
+	if (m->win)
+		mlx_destroy_window(m->mlx, m->win);
+
+	if (m->floor)
+		mlx_destroy_image(m->mlx, m->floor);
+	if (m->wall)
+		mlx_destroy_image(m->mlx, m->wall);
+	if (m->cltb)
+		mlx_destroy_image(m->mlx, m->cltb);
+	if (m->exit)
+		mlx_destroy_image(m->mlx, m->exit);
+	if (m->plr)
+		mlx_destroy_image(m->mlx, m->plr);
+
+	if (m->mlx)
+	{
+		mlx_destroy_display(m->mlx);
+		free(m->mlx);
+		m->mlx = NULL;
+	}
 }

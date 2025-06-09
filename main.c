@@ -45,7 +45,7 @@ int main(int ac, char **av)
 	if (map->flag == false)
 		return (write(2, "Error\n", 6), cleanall(map));
 	map_render(map);
-	win_dest(map);
-	cleanall(map);
+	//win_dest(map);
+	//cleanall(map);
 	return (0);
 }
