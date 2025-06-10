@@ -6,7 +6,7 @@
 /*   By: mzapora <mzapora@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:55:39 by mzapora           #+#    #+#             */
-/*   Updated: 2025/06/09 16:16:25 by mzapora          ###   ########.fr       */
+/*   Updated: 2025/06/10 13:01:46 by mzapora          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	cleanall(t_stack *map)
 	i = 0;
 	if (map->map2)
 	{
-		while (i <= map->high && map->map2[i])
+		while (map->map2[i])
 		{
 			free(map->map2[i]);
 			i++;
